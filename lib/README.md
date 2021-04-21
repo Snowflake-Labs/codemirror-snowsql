@@ -1,8 +1,3 @@
-<<<<<<< Updated upstream
-# codemirror-snowsql
-This project is to use the lezer-snowsql grammar to add parsing and linting capabilities to codemirror for editing SnowSQL
-This branch has an editor built using codemirror 6 and lezer parser. It is able to provide linting and autocomplete for the select query of SQL. This was built taking inpiration from CodeMirror-PromQL. There are still a few promql constructs in the code. This is currently a work in progress. 
-=======
 CodeMirror-promql
 =================
 [![CircleCI](https://circleci.com/gh/prometheus-community/codemirror-promql.svg?style=shield)](https://circleci.com/gh/prometheus-community/codemirror-promql) [![GitHub license](https://img.shields.io/badge/license-MIT-blue.svg)](./LICENSE)
@@ -181,4 +176,3 @@ This should create a tab in your browser with the development app that contains 
 ## License
 
 [MIT](./LICENSE)
->>>>>>> Stashed changes

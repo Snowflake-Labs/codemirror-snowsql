@@ -43,6 +43,7 @@ export const snowSQLLanguage = LezerLanguage.define({
         'Avg Create Select Allowed_IP_Policy Describe Desc From Bottomk Count Count_values Group Max Min Quantile Stddev Stdvar Sum Topk': tags.operatorKeyword,
         'By Without Table Dash Stage Allowed IP Bool On Ignoring GroupLeft GroupRight Offset Start End': tags.modifier,
         'And Unless Or': tags.logicOperator,
+        'Allowed_IP_Policy A_token_like_this': tags.macroName,
         'Sub Add Type  Network Policy Mul Mod Div Eql Neq Lte Lss Gte Gtr EqlRegex EqlSingle NeqRegex Pow At': tags.operator,
         UnaryOp: tags.arithmeticOperator,
         '( )': tags.paren,

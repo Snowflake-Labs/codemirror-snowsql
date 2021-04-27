@@ -29,7 +29,7 @@
   },
   "homepage": "https://github.com/prometheus-community/codemirror-snowSQL/blob/master/README.md",
   "dependencies": {
-    "lezer-snowsql": "^0.18.0",
+    "lezer-snowsql": "git+https://github.com/Snowflake-Labs/lezer-snowsql.git#lezer-snowsql-wip",
     "lru-cache": "^6.0.0"
   },
   "devDependencies": {

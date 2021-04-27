@@ -36,7 +36,7 @@ import {
   matchOpTerms,
   snippets,
 } from './snowSQL.terms';
-import { EqlSingle, Neq } from 'lezer-snowsql';
+import { EqlSingle } from 'lezer-snowsql';
 import { syntaxTree } from '@codemirror/language';
 //import { dropSQLTerms } from '../../../lib/complete/snowSQL.terms';
 
@@ -267,16 +267,17 @@ describe('analyzeCompletion test', () => {
           metricName: 'metric_name',
           labelName: 'labelName',
           matchers: [
+            
             {
               name: 'labelName',
               type: EqlSingle,
               value: 'labelValue',
             },
-            {
-              name: 'labelName',
-              type: Neq,
-              value: '',
-            },
+            //{
+           //   name: 'labelName',
+          //    type: Neq,
+          //    value: '',
+            //},
           ],
         },
       ],
@@ -315,11 +316,13 @@ describe('analyzeCompletion test', () => {
               type: EqlSingle,
               value: 'labelValue',
             },
+            /*
             {
               name: 'labelName',
               type: Neq,
               value: '',
             },
+            */
           ],
         },
       ],

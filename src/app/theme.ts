@@ -77,6 +77,10 @@ export const snowSQLHighlightMaterialTheme = HighlightStyle.define([
     tag: tags.comment,
     color: '#546E7A',
   },
+  {
+    tag: tags.macroName,
+    color: '#C8A2C8',
+  }
 ]);
 
 export const customTheme = EditorView.theme({

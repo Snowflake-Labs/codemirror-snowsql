@@ -55,6 +55,7 @@ export const atModifierTerms = [
 ];
 
 export const functionIdentifierTerms = [
+  /*
   {
     label: 'abs',
     detail: 'function',
@@ -362,9 +363,10 @@ export const functionIdentifierTerms = [
     info: 'Return the year for provided timestamps',
     type: 'function',
   },
+  */
 ];
 
-export const aggregateOpTerms = [
+export const aggregateOpTerms = [/*
   {
     label: 'Se',
     detail: 'keyword',
@@ -444,10 +446,58 @@ export const aggregateOpTerms = [
     type: 'keyword',
   },
   {
-    label: 'The quick brown fox jumps over the lazy dog',
-  //  detail: 'aggregation',
-   // info: 'Largest k elements by sample value',
-  //   type: 'keyword',
+    label: 'select',
+    //detail: 'aggregation',
+   info: 'Select keyword',
+    type: 'keyword',
+  },*/
+  {
+    label: 'drop',
+    //detail: 'aggregation',
+   info: 'Drop keyword',
+    type: 'keyword',
+  },
+  {
+    label: 'network',
+    //detail: 'aggregation',
+   info: 'Network keyword',
+    type: 'keyword',
+  },
+  {
+    label: 'ALLOWED-IP-LIST',
+    //detail: 'aggregation',
+   info: 'Allowed IP list',
+    type: 'keyword',
+  },
+  {
+    label: 'BLOCKED-IP-LIST',
+    //detail: 'aggregation',
+   info: 'Blocked IP list',
+    type: 'keyword',
+  },
+
+  {
+    label: 'describe',
+    //detail: 'aggregation',
+    info: 'Describe keyword',
+    type: 'query',
+    },
+  {
+    label: 'alter',
+    //detail: 'aggregation',
+   info: 'Alter keyword',
+    type: 'keyword',
+  },
+  {
+    label: 'create',
+    //detail: 'aggregation',
+   info: 'Create keyword',
+    type: 'keyword',
+  },  {
+    label: 'account',
+    //detail: 'aggregation',
+   info: 'Account keyword',
+    type: 'keyword',
   },
 ];
 
@@ -509,22 +559,42 @@ export const basicSqlTerms = [
 export const snippets: readonly Completion[] = [
 
   {
-    label: 'select * from ',
-    type: 'function',
+    label: 'Select query',
+   // type: 'funk',
     detail: 'snippet',
-    info: 'The Select Query',
-    apply: snippet('Seelect * from table_name;'),
+    info: 'Basic select query',
+    apply: snippet('select * from table_name;'),
+  },
+  
+  {
+    label: 'describe user query',
+   // type: 'funk',
+    detail: 'snippet',
+    info: 'Describe user query',
+    apply: snippet('desc user user_name;'),
   },
 
   {
-    label: 'lol * from ',
-    type: 'function',
+    label: 'describe table query',
+   // type: 'funk',
     detail: 'snippet',
-    info: 'The Select Query',
-    apply: snippet('Select * from table_name;'),
+    info: 'Describe table query, stage',
+    apply: snippet('desc table table_name;'),
   },
+
+
+
   {
-    label: 'Create table',
+    label: 'describe table stage properties query',
+   // type: 'funk',
+    detail: 'snippet',
+    info: 'Describe table query, stage',
+    apply: snippet('desc table table_name type = stage;'),
+  },
+
+
+  {
+    label: 'create table',
     type: 'snippet',
     detail: 'snippet',
     info: 'Table creation skeletion',
@@ -538,6 +608,19 @@ export const snippets: readonly Completion[] = [
 
 
   {
+    label: 'create account',
+    type: 'snippet',
+    detail: 'snippet',
+    info: 'Table creation skeletion',
+    apply: snippet(`CREATE TABLE table_name (
+      column1 datatype,
+      column2 datatype,
+      column3 datatype,
+     ....
+  );`),
+  },
+
+  {
     label: 'Flatten',
     type: 'snippet',
     detail: 'snippet',
@@ -548,7 +631,7 @@ export const snippets: readonly Completion[] = [
       [ , MODE => 'OBJECT' | 'ARRAY' | 'BOTH' ] )`),
   },
 
-
+/*
   {
     label: 'sum(rate(__input_vector__[5m]))',
     type: 'function',
@@ -591,4 +674,5 @@ export const snippets: readonly Completion[] = [
     info: 'Count the number of series per distinct sample value',
     apply: snippet('count_values("${__label_name__}", ${__metric__})'),
   },
+  */
 ];

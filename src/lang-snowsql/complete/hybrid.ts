@@ -53,7 +53,7 @@ import { EditorState } from '@codemirror/state';
 import { containsAtLeastOneChild, containsChild, retrieveAllRecursiveNodes, walkBackward, walkThrough } from '../parser/path-finder';
 import {
   dropSQLTerms,
-  aggregateOpTerms,
+ // aggregateOpTerms,
   atModifierTerms,
   binOpModifierTerms,
   basicSqlTerms,
@@ -77,7 +77,7 @@ const autocompleteNodes: { [key: string]: Completion[] } = {
   basicSql : basicSqlTerms,
   atModifier: atModifierTerms,
   functionIdentifier: functionIdentifierTerms,
-  aggregateOp: aggregateOpTerms,
+  //aggregateOp: aggregateOpTerms,
   dropSql: dropSQLTerms,
 };
 
@@ -294,15 +294,19 @@ export class HybridComplete implements CompleteStrategy {
     let completeSnippet = false;
     let span = true;
     for (const context of contexts) {
-      switch (context.kind) {
 
+      switch (context.kind) {
         case ContextKind.Aggregation:
           asyncResult = asyncResult.then((result) => {
+            console.log(result)
+
             return result.concat(autocompleteNodes.aggregateOp);
           });
           break;
         case ContextKind.Function:
           asyncResult = asyncResult.then((result) => {
+            console.log(result)
+
             return result.concat(autocompleteNodes.functionIdentifier);
           });
           break;
@@ -312,71 +316,84 @@ export class HybridComplete implements CompleteStrategy {
         case ContextKind.basicSql:          
         console.log("basicSQL is being triggered")
 
-          asyncResult = asyncResult.then((result) => {
+          asyncResult = asyncResult.then((result) => {            console.log(result)
+
             return result.concat(autocompleteNodes.basicSql);
           });
           break;
 
 
         case ContextKind.BinOpModifier:
-          asyncResult = asyncResult.then((result) => {
+          asyncResult = asyncResult.then((result) => {            console.log(result)
+
             return result.concat(autocompleteNodes.binOpModifier);
           });
           break;
         case ContextKind.BinOp:
-          asyncResult = asyncResult.then((result) => {
+          asyncResult = asyncResult.then((result) => {            console.log(result)
+
             return result.concat(autocompleteNodes.binOp);
           });
           break;
         case ContextKind.MatchOp:
-          asyncResult = asyncResult.then((result) => {
+          asyncResult = asyncResult.then((result) => {            console.log(result)
+
             return result.concat(autocompleteNodes.matchOp);
           });
           break;
         case ContextKind.dropSQLTerms:
-          asyncResult = asyncResult.then((result) => {
+          asyncResult = asyncResult.then((result) => {            console.log(result)
+
             return result.concat(autocompleteNodes.dropSQLTerms);
           });
           break;
         case ContextKind.Duration:
           span = false;
-          asyncResult = asyncResult.then((result) => {
+          asyncResult = asyncResult.then((result) => {            console.log(result)
+
             return result.concat(autocompleteNodes.duration);
           });
           break;
         case ContextKind.Offset:
-          asyncResult = asyncResult.then((result) => {
+          asyncResult = asyncResult.then((result) => {            console.log(result)
+
             return result.concat([{ label: 'offset' }]);
           });
           break;
         case ContextKind.Bool:
-          asyncResult = asyncResult.then((result) => {
+          asyncResult = asyncResult.then((result) => {            console.log(result)
+
             return result.concat([{ label: 'bool' }]);
           });
           break;
         case ContextKind.AtModifiers:
-          asyncResult = asyncResult.then((result) => {
+          asyncResult = asyncResult.then((result) => {            console.log(result)
+
             return result.concat(autocompleteNodes.atModifier);
           });
           break;
         case ContextKind.MetricName:
-          asyncResult = asyncResult.then((result) => {
+          asyncResult = asyncResult.then((result) => {            console.log(result)
+
             completeSnippet = true;
             return this.autocompleteMetricName(result, context);
           });
           break;
         case ContextKind.LabelName:
-          asyncResult = asyncResult.then((result) => {
+          asyncResult = asyncResult.then((result) => {            console.log(result)
+
             return this.autocompleteLabelName(result, context);
           });
           break;
         case ContextKind.LabelValue:
-          asyncResult = asyncResult.then((result) => {
+          asyncResult = asyncResult.then((result) => {            console.log(result)
+
             return this.autocompleteLabelValue(result, context);
           });
       }
     }
-    return asyncResult.then((result) => {
+    return asyncResult.then((result) => {            console.log(result)
+
       return arrayToCompletionResult(result, computeStartCompletePosition(tree, pos), pos, completeSnippet, span);
     });
   }

@@ -4,20 +4,20 @@ import {
   CreateStmt,
   DescribeStmt,
   DropStmt,
-  //And,
-  //BinModifiers,
+  // And,
+  // BinModifiers,
   Bool,
   // Eql,
- // EqlSingle,
+  // EqlSingle,
   Star,
-  //Gte,
-  //Gtr,
+  // Gte,
+  // Gtr,
   Identifier,
-  //Lss,
+  // Lss,
   // Lte,
-  //Neq,
+  // Neq,
   Or,
-  //Unless,
+  // Unless,
   SelectStmt,
   Comma,
   Smc,
@@ -26,8 +26,7 @@ import {
 } from 'lezer-snowsql';
 import { containsAtLeastOneChild, retrieveAllRecursiveNodes, walkThrough } from './path-finder';
 import { getType } from './type';
-import { //buildLabelMatchers 
-} from './matcher';
+// import { buildLabelMatchers } from './matcher';
 import { EditorState } from '@codemirror/state';
 import { Matcher } from '../types/matcher';
 import { syntaxTree } from '@codemirror/language';
@@ -74,13 +73,8 @@ export class Parser {
           from: node ? node.from : cursor.from,
           to: node ? node.to : cursor.to,
         });
-
       }
-
     }
-
-
-
   }
 
 
@@ -88,13 +82,13 @@ export class Parser {
     console.log(node?.type.name, node?.type.id)
 
     // const forCe = this.tree.cursor();
-    console.log("walkThrough" + walkThrough(node!))
+    console.log("walkThrough" + (node ? walkThrough(node) : 'nothing to walk'))
     if (!node) {
       return ValueType.none;
     }
     switch (node.type.id) {
-  //    case Expr:
-   //     return this.checkAST(node.firstChild);
+     // case Expr:
+     //   return this.checkAST(node.firstChild);
 
       case SelectStmt:
         this.checkSelect(node)
@@ -154,7 +148,6 @@ export class Parser {
           this.addDiagnostic(node, `There seems to be an extra comma, try removing it?`);
           return;
         }
-
       }
     }
 

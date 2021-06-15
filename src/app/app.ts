@@ -1,5 +1,3 @@
-
-
 import { basicSetup } from '@codemirror/basic-setup';
 import { EditorState } from '@codemirror/state';
 import { EditorView } from '@codemirror/view';
@@ -38,15 +36,15 @@ function createEditor() {
   });
 }
 
-function applyConfiguration(): void {
-  setCompletion();
-  createEditor();
-}
+// function applyConfiguration(): void {
+//   setCompletion();
+//   createEditor();
+// }
 
 createEditor();
 
 // eslint-disable-next-line @typescript-eslint/no-non-null-assertion,@typescript-eslint/ban-ts-ignore
 // @ts-ignore
-document.getElementById('apply').addEventListener('click', function () {
-  applyConfiguration();
-});
+// document.getElementById('apply').addEventListener('click', function () {
+//   applyConfiguration();
+// });

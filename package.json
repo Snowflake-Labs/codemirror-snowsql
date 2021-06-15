@@ -30,7 +30,8 @@
   "homepage": "https://github.com/Snowflake-Labs/codemirror-snowsql/blob/master/README.md",
   "dependencies": {
     "lezer-snowsql": "git+https://github.com/Snowflake-Labs/lezer-snowsql.git#lezer-snowsql-wip",
-    "lru-cache": "^6.0.0"
+    "lru-cache": "^6.0.0",
+    "redux": "^4.1.0"
   },
   "devDependencies": {
     "@codemirror/autocomplete": "^0.18.3",

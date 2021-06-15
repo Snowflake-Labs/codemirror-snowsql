@@ -1,24 +1,4 @@
-// The MIT License (MIT)
-//
-// Copyright (c) 2020 The Prometheus Authors
-//
-// Permission is hereby granted, free of charge, to any person obtaining a copy
-// of this software and associated documentation files (the "Software"), to deal
-// in the Software without restriction, including without limitation the rights
-// to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
-// copies of the Software, and to permit persons to whom the Software is
-// furnished to do so, subject to the following conditions:
-//
-// The above copyright notice and this permission notice shall be included in all
-// copies or substantial portions of the Software.
-//
-// THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
-// IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
-// FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
-// AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
-// LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
-// OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
-// SOFTWARE.
+
 
 import { Completion, snippet } from '@codemirror/autocomplete';
 
@@ -55,7 +35,6 @@ export const atModifierTerms = [
 ];
 
 export const functionIdentifierTerms = [
-  /*
   {
     label: 'abs',
     detail: 'function',
@@ -363,10 +342,9 @@ export const functionIdentifierTerms = [
     info: 'Return the year for provided timestamps',
     type: 'function',
   },
-  */
 ];
 
-export const aggregateOpTerms = [/*
+export const aggregateOpTerms = [
   {
     label: 'Se',
     detail: 'keyword',
@@ -446,58 +424,10 @@ export const aggregateOpTerms = [/*
     type: 'keyword',
   },
   {
-    label: 'select',
-    //detail: 'aggregation',
-   info: 'Select keyword',
-    type: 'keyword',
-  },*/
-  {
-    label: 'drop',
-    //detail: 'aggregation',
-   info: 'Drop keyword',
-    type: 'keyword',
-  },
-  {
-    label: 'network',
-    //detail: 'aggregation',
-   info: 'Network keyword',
-    type: 'keyword',
-  },
-  {
-    label: 'ALLOWED-IP-LIST',
-    //detail: 'aggregation',
-   info: 'Allowed IP list',
-    type: 'keyword',
-  },
-  {
-    label: 'BLOCKED-IP-LIST',
-    //detail: 'aggregation',
-   info: 'Blocked IP list',
-    type: 'keyword',
-  },
-
-  {
-    label: 'describe',
-    //detail: 'aggregation',
-    info: 'Describe keyword',
-    type: 'query',
-    },
-  {
-    label: 'alter',
-    //detail: 'aggregation',
-   info: 'Alter keyword',
-    type: 'keyword',
-  },
-  {
-    label: 'create',
-    //detail: 'aggregation',
-   info: 'Create keyword',
-    type: 'keyword',
-  },  {
-    label: 'account',
-    //detail: 'aggregation',
-   info: 'Account keyword',
-    type: 'keyword',
+    label: 'The quick brown fox jumps over the lazy dog',
+  //  detail: 'aggregation',
+   // info: 'Largest k elements by sample value',
+  //   type: 'keyword',
   },
 ];
 
@@ -540,12 +470,6 @@ export const basicSqlTerms = [
     type: 'keyword',
 },
 
-{
-  label: 'ABCDEFHGHGHGHGHG',
-  detail: 'keyword',
-  info: 'The select query',
-  type: 'keyword',
-},
 
   {
     label: 'select',
@@ -559,42 +483,22 @@ export const basicSqlTerms = [
 export const snippets: readonly Completion[] = [
 
   {
-    label: 'Select query',
-   // type: 'funk',
+    label: 'select * from ',
+    type: 'function',
     detail: 'snippet',
-    info: 'Basic select query',
-    apply: snippet('select * from table_name;'),
-  },
-  
-  {
-    label: 'describe user query',
-   // type: 'funk',
-    detail: 'snippet',
-    info: 'Describe user query',
-    apply: snippet('desc user user_name;'),
+    info: 'basic Select Query',
+    apply: snippet('Select * from table_name;'),
   },
 
-  {
-    label: 'describe table query',
-   // type: 'funk',
+  {   
+    label: 'Create Account',
+    type: 'function',
     detail: 'snippet',
-    info: 'Describe table query, stage',
-    apply: snippet('desc table table_name;'),
+    info: 'Create Account Query',
+    apply: snippet("create account myaccount2 admin_name = placeholder admin_password = 'TestPassword1' email = myemail@org.com edition = enterprise;"),
   },
-
-
-
   {
-    label: 'describe table stage properties query',
-   // type: 'funk',
-    detail: 'snippet',
-    info: 'Describe table query, stage',
-    apply: snippet('desc table table_name type = stage;'),
-  },
-
-
-  {
-    label: 'create table',
+    label: 'Create table',
     type: 'snippet',
     detail: 'snippet',
     info: 'Table creation skeletion',
@@ -606,19 +510,6 @@ export const snippets: readonly Completion[] = [
   );`),
   },
 
-
-  {
-    label: 'create account',
-    type: 'snippet',
-    detail: 'snippet',
-    info: 'Table creation skeletion',
-    apply: snippet(`CREATE TABLE table_name (
-      column1 datatype,
-      column2 datatype,
-      column3 datatype,
-     ....
-  );`),
-  },
 
   {
     label: 'Flatten',
@@ -631,7 +522,7 @@ export const snippets: readonly Completion[] = [
       [ , MODE => 'OBJECT' | 'ARRAY' | 'BOTH' ] )`),
   },
 
-/*
+
   {
     label: 'sum(rate(__input_vector__[5m]))',
     type: 'function',
@@ -674,5 +565,4 @@ export const snippets: readonly Completion[] = [
     info: 'Count the number of series per distinct sample value',
     apply: snippet('count_values("${__label_name__}", ${__metric__})'),
   },
-  */
 ];

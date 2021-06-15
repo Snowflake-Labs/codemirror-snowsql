@@ -1,4 +1,4 @@
-import { EqlSingle, 
+import { //EqlSingle, 
   //Neq 
 } from 'lezer-snowsql';
 
@@ -15,8 +15,8 @@ export class Matcher {
 
   matchesEmpty(): boolean {
     switch (this.type) {
-      case EqlSingle:
-        return this.value === '';
+      //case EqlSingle:
+     //   return this.value === '';
      // case Neq:
       //  return this.value !== '';
       default:

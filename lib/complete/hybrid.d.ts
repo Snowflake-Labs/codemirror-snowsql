@@ -3,6 +3,7 @@ import { SyntaxNode } from 'lezer-tree';
 import { SnowClient } from '../client';
 import { CompletionContext, CompletionResult } from '@codemirror/autocomplete';
 import { EditorState } from '@codemirror/state';
+import '../parser/matcher';
 import { Matcher } from '../types/matcher';
 export declare enum ContextKind {
     MetricName = 0,

@@ -15,7 +15,6 @@ export declare class Parser {
     private checkCreate;
     private checkDrop;
     private checkDesc;
-    private checkBinaryExpr;
     private expectType;
     private addDiagnostic;
 }

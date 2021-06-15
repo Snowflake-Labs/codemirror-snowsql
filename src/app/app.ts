@@ -5,7 +5,6 @@ import { EditorState } from '@codemirror/state';
 import { EditorView } from '@codemirror/view';
 import {  snowSQLExtension  } from '../lang-snowsql';
 import { customTheme, snowSQLHighlightMaterialTheme } from './theme';
-import {oneDark} from '@codemirror/theme-one-dark'
 
 const snowsqlExtension = new snowSQLExtension();
 let editor: EditorView;
@@ -48,9 +47,6 @@ createEditor();
 
 // eslint-disable-next-line @typescript-eslint/no-non-null-assertion,@typescript-eslint/ban-ts-ignore
 // @ts-ignore
-/*
-
 document.getElementById('apply').addEventListener('click', function () {
   applyConfiguration();
 });
-*/

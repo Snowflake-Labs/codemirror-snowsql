@@ -1,24 +1,4 @@
-// The MIT License (MIT)
-//
-// Copyright (c) 2020 The Prometheus Authors
-//
-// Permission is hereby granted, free of charge, to any person obtaining a copy
-// of this software and associated documentation files (the "Software"), to deal
-// in the Software without restriction, including without limitation the rights
-// to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
-// copies of the Software, and to permit persons to whom the Software is
-// furnished to do so, subject to the following conditions:
-//
-// The above copyright notice and this permission notice shall be included in all
-// copies or substantial portions of the Software.
-//
-// THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
-// IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
-// FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
-// AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
-// LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
-// OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
-// SOFTWARE.
+
 
 import { FetchFn } from '.';
 import { Matcher } from '../types/matcher';
@@ -59,7 +39,6 @@ export interface SnowConfig {
   lookbackInterval?: number;
   httpErrorHandler?: (error: any) => void;
   fetchFn?: FetchFn;
-  // cache will allow user to change the configuration of the cached Prometheus client (which is used by default)
   cache?: {
     // maxAge is the maximum amount of time that a cached completion item is valid before it needs to be refreshed.
     // It is in milliseconds. Default value:  300 000 (5min)
@@ -74,13 +53,11 @@ interface APIResponse<T> {
   warnings?: string[];
 }
 
-// These are status codes where the Prometheus API still returns a valid JSON body,
 // with an error encoded within the JSON.
 const badRequest = 400;
 const unprocessableEntity = 422;
 const serviceUnavailable = 503;
 
-// HTTPSnowClient is the HTTP client that should be used to get some information from the different endpoint provided by prometheus.
 export class HTTPSnowClient implements SnowClient {
   private readonly lookbackInterval = 60 * 60 * 1000 * 12; //12 hours
   private readonly url: string;
@@ -108,7 +85,6 @@ export class HTTPSnowClient implements SnowClient {
         start: start.toISOString(),
         end: end.toISOString(),
       });
-      // See https://prometheus.io/docs/prometheus/latest/querying/api/#getting-label-names
       return this.fetchAPI<string[]>(`${labelsEndpoint}?${params}`).catch((error) => {
         if (this.errorHandler) {
           this.errorHandler(error);
@@ -142,7 +118,6 @@ export class HTTPSnowClient implements SnowClient {
         start: start.toISOString(),
         end: end.toISOString(),
       });
-      // See https://prometheus.io/docs/prometheus/latest/querying/api/#querying-label-values
       return this.fetchAPI<string[]>(`${labelValuesEndpoint.replace(/:name/gi, labelName)}?${params}`).catch((error) => {
         if (this.errorHandler) {
           this.errorHandler(error);
@@ -184,7 +159,6 @@ export class HTTPSnowClient implements SnowClient {
       end: end.toISOString(),
     //  'match[]': labelMatchersToString(metricName, matchers, labelName),
     });
-    // See https://prometheus.io/docs/prometheus/latest/querying/api/#finding-series-by-label-matchers
     return this.fetchAPI<Map<string, string>[]>(`${seriesEndpoint}?${params}`).catch((error) => {
       if (this.errorHandler) {
         this.errorHandler(error);

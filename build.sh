@@ -9,3 +9,4 @@ cp ./README.md ./lib/README.md
 cp ./CHANGELOG.md ./lib/CHANGELOG.md
 cp ./LICENSE ./lib/LICENSE
 cp ./package.json ./lib/package.json
+

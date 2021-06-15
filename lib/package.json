@@ -1,6 +1,6 @@
 {
   "name": "codemirror-snowsql",
-  "version": "0.14.1",
+  "version": "0.1.0",
   "description": "a CodeMirror mode for the SnowSQL language",
   "main": "index.js",
   "type": "module",
@@ -10,26 +10,27 @@
     "build-app": "webpack --config webpack.config.cjs",
     "test": "node --experimental-specifier-resolution=node --experimental-modules --loader ts-node/esm node_modules/mocha/lib/cli/cli.js src/**/*.test.ts",
     "lint": "eslint src/ --ext .ts",
-    "lint:fix": "eslint --fix src/ --ext .ts"
+    "lint:fix": "eslint --fix src/ --ext .ts",
+    "postinstall": "cd node_modules/lezer-snowsql && npm install"
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/prometheus-community/codemirror-snowSQL.git"
+    "url": "git+https://github.com/Snowflake-Labs/codemirror-snowsql.git"
   },
   "keywords": [
     "snowSQL",
     "codemirror",
-    "mode",
-    "prometheus"
+    "mode"
   ],
-  "author": "Prometheus Authors <prometheus-developers@googlegroups.com>",
+  "author": "",
   "license": "MIT",
   "bugs": {
-    "url": "https://github.com/prometheus-community/codemirror-snowSQL/issues"
+    "url": "https://github.com/Snowflake-Labs/codemirror-snowsql/issues"
   },
-  "homepage": "https://github.com/prometheus-community/codemirror-snowSQL/blob/master/README.md",
+  "homepage": "https://github.com/Snowflake-Labs/codemirror-snowsql/blob/master/README.md",
   "dependencies": {
-    "lezer-snowsql": "^0.18.0",
+    "lezer": "^0.13.5",
+    "lezer-snowsql": "git+https://github.com/Snowflake-Labs/lezer-snowsql.git#lezer-snowsql-wip",
     "lru-cache": "^6.0.0"
   },
   "devDependencies": {

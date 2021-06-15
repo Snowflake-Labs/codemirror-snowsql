@@ -1,27 +1,24 @@
 import { Diagnostic } from '@codemirror/lint';
 import { SyntaxNode, Tree } from 'lezer-tree';
 import {
-  CreateExpr,
-  DescribeExpr,
-  DropExpr,
-  And,
+  CreateStmt,
+  DescribeStmt,
+  DropStmt,
+  //And,
   //BinModifiers,
   Bool,
   // Eql,
-  EqlSingle,
-  Expr,
+ // EqlSingle,
+  Star,
   //Gte,
   //Gtr,
-  Mul,
   Identifier,
   //Lss,
   // Lte,
   //Neq,
   Or,
-  ParenExpr,
-  SubqueryExpr,
   //Unless,
-  SelectExpr,
+  SelectStmt,
   Comma,
   Smc,
   From,
@@ -87,8 +84,6 @@ export class Parser {
   }
 
 
-  // checkAST is inspired of the same named method from prometheus/prometheus:
-  // https://github.com/prometheus/prometheus/blob/3470ee1fbf9d424784eb2613bab5ab0f14b4d222/snowSQL/parser/parse.go#L433
   checkAST(node: SyntaxNode | null): ValueType {
     console.log(node?.type.name, node?.type.id)
 
@@ -98,25 +93,25 @@ export class Parser {
       return ValueType.none;
     }
     switch (node.type.id) {
-      case Expr:
-        return this.checkAST(node.firstChild);
+  //    case Expr:
+   //     return this.checkAST(node.firstChild);
 
-      case SelectExpr:
+      case SelectStmt:
         this.checkSelect(node)
         break;
 
-      case CreateExpr:
+      case CreateStmt:
         this.checkCreate(node)
         break;
 
-      case DescribeExpr:
+      case DescribeStmt:
         this.checkDesc(node)
         break;
 
-      case DropExpr:
+      case DropStmt:
         this.checkDrop(node)
         break;
-
+/*
       case ParenExpr:
         this.checkAST(walkThrough(node, Expr));
         break;
@@ -127,8 +122,7 @@ export class Parser {
           this.addDiagnostic(node, `subquery is only allowed on instant vector, got ${subQueryExprType} in ${node.name} instead`);
         }
         break;
-
-
+*/
     }
 
     return getType(node);
@@ -154,9 +148,9 @@ export class Parser {
 
     if (fromChild) {
 
-      if (fromChild?.prevSibling?.type.id != Identifier) {
+      if (fromChild?.prevSibling?.type.id == Comma) {
 
-        if (fromChild?.prevSibling?.type.id != Mul) {
+        if (fromChild?.prevSibling?.type.id != Star) {
           this.addDiagnostic(node, `There seems to be an extra comma, try removing it?`);
           return;
         }

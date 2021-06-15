@@ -11,7 +11,6 @@ export interface CompleteStrategy {
 // CompleteConfiguration should be used to customize the autocompletion.
 export interface CompleteConfiguration {
   remote?: SnowConfig | SnowClient;
-  // maxMetricsMetadata is the maximum number of metrics in Prometheus for which metadata is fetched.
   // If the number of metrics exceeds this limit, no metric metadata is fetched at all.
   maxMetricsMetadata?: number;
   // When providing this custom CompleteStrategy, the settings above will not be used.

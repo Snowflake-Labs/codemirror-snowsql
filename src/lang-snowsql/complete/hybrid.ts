@@ -1,37 +1,10 @@
-// The MIT License (MIT)
-//
-// Copyright (c) 2020 The Prometheus Authors
-//
-// Permission is hereby granted, free of charge, to any person obtaining a copy
-// of this software and associated documentation files (the "Software"), to deal
-// in the Software without restriction, including without limitation the rights
-// to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
-// copies of the Software, and to permit persons to whom the Software is
-// furnished to do so, subject to the following conditions:
-//
-// The above copyright notice and this permission notice shall be included in all
-// copies or substantial portions of the Software.
-//
-// THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
-// IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
-// FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
-// AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
-// LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
-// OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
-// SOFTWARE.
-
 import { CompleteStrategy } from './index';
 import { SyntaxNode } from 'lezer-tree';
 import { SnowClient } from '../client';
 import {
-  Add,
-  And,
+  //And,
   //Div,
-  Duration,
   //Eql,
-   Expr,
-  //GroupingLabel,
- // GroupingLabels,
   //Gte,
   //Gtr,
   Identifier,
@@ -39,21 +12,20 @@ import {
   //Lss,
   //Lte,
   //Mod,
-  Mul,
   //LabelMatchList,
   NumberLiteral,
   Or,
   //Pow,
   StringLiteral,
   //Sub,
-  SubqueryExpr,
+ // SubqueryExpr,
 } from 'lezer-snowsql';
 import { Completion, CompletionContext, CompletionResult } from '@codemirror/autocomplete';
 import { EditorState } from '@codemirror/state';
 import { containsAtLeastOneChild, containsChild, retrieveAllRecursiveNodes, walkBackward, walkThrough } from '../parser/path-finder';
 import {
   dropSQLTerms,
- // aggregateOpTerms,
+  aggregateOpTerms,
   atModifierTerms,
   binOpModifierTerms,
   basicSqlTerms,
@@ -63,9 +35,8 @@ import {
   matchOpTerms,
   snippets,
 } from './snowsql.terms';
-import { 
-  //buildLabelMatchers
- } from '../parser/matcher';
+import //buildLabelMatchers
+'../parser/matcher';
 import { Matcher } from '../types/matcher';
 import { syntaxTree } from '@codemirror/language';
 
@@ -74,10 +45,10 @@ const autocompleteNodes: { [key: string]: Completion[] } = {
   binOp: binOpTerms,
   duration: durationTerms,
   binOpModifier: binOpModifierTerms,
-  basicSql : basicSqlTerms,
+  basicSql: basicSqlTerms,
   atModifier: atModifierTerms,
   functionIdentifier: functionIdentifierTerms,
-  //aggregateOp: aggregateOpTerms,
+  aggregateOp: aggregateOpTerms,
   dropSql: dropSQLTerms,
 };
 
@@ -107,7 +78,6 @@ export interface Context {
   labelName?: string;
   matchers?: Matcher[];
 }
-
 
 function arrayToCompletionResult(data: Completion[], from: number, to: number, includeSnippet = false, span = true): CompletionResult {
   const options = data;
@@ -143,7 +113,7 @@ function computeStartCompleteLabelPositionInLabelMatcherOrInGroupingLabel(node: 
 // Note: this method is exported only for testing purpose.
 export function computeStartCompletePosition(node: SyntaxNode, pos: number): number {
   let start = node.from;
-/*
+  /*
   if (node.type.id === LabelMatchers || node.type.id === GroupingLabels) {
     start = computeStartCompleteLabelPositionInLabelMatcherOrInGroupingLabel(node, pos);
   } */
@@ -157,16 +127,13 @@ export function analyzeCompletion(state: EditorState, node: SyntaxNode): Context
   const result: Context[] = [];
   switch (node.type.id) {
     case 0: // 0 is the id of the error node
-
- 
-
-      if (node.parent?.type.id === SubqueryExpr && containsAtLeastOneChild(node.parent, Duration)) {
+     // if (node.parent?.type.id === SubqueryExpr && containsAtLeastOneChild(node.parent, Duration)) {
         // we are likely in the given situation:
         //    `rate(foo[5d:5])`
         // so we should autocomplete a duration
-        result.push({ kind: ContextKind.Duration });
-        break;
-      }
+      //  result.push({ kind: ContextKind.Duration });
+//break;
+   //   }
       // when we are in the situation 'metric_name !', we have the following tree
       // Expr(VectorSelector(MetricIdentifier(Identifier),⚠))
       // We should try to know if the char '!' is part of a binOp.
@@ -179,7 +146,6 @@ export function analyzeCompletion(state: EditorState, node: SyntaxNode): Context
     case Identifier:
       // sometimes an Identifier has an error has parent. This should be treated in priority
       if (node.parent?.type.id === 0) {
-
       }
       // As the leaf Identifier is coming for a lot of different case, we have to take a bit time to analyze the tree
       // in order to know what we have to autocomplete exactly.
@@ -211,9 +177,8 @@ export function analyzeCompletion(state: EditorState, node: SyntaxNode): Context
         break;
       }
       // now we have to know if we have two Expr in the direct children of the `parent`
-      const containExprTwice = containsChild(parent, Expr, Expr);
+     /* const containExprTwice = containsChild(parent, Expr, Expr);
       if (containExprTwice) {
-    
       } else {
         result.push(
           { kind: ContextKind.MetricName, metricName: state.sliceDoc(node.from, node.to) },
@@ -222,7 +187,7 @@ export function analyzeCompletion(state: EditorState, node: SyntaxNode): Context
         );
       }
       break;
-      /*
+    /*
     case GroupingLabels:
       // In this case we are in the given situation:
       //      sum by ()
@@ -237,8 +202,10 @@ export function analyzeCompletion(state: EditorState, node: SyntaxNode): Context
         // So we have to continue to autocomplete any kind of labelName
         result.push({ kind: ContextKind.LabelName });
       } */
-      
+
     case NumberLiteral:
+
+    /*
       if (node.parent?.type.id === 0 && node.parent.parent?.type.id === SubqueryExpr) {
         // Here we are likely in this situation:
         //     `go[5d:4]`
@@ -252,6 +219,8 @@ export function analyzeCompletion(state: EditorState, node: SyntaxNode): Context
       }
       break;
 
+
+      */
     /*
 
     case Pow:
@@ -272,7 +241,6 @@ export function analyzeCompletion(state: EditorState, node: SyntaxNode): Context
   return result;
 }
 
-// HybridComplete provides a full completion result with or without a remote prometheus.
 export class HybridComplete implements CompleteStrategy {
   private readonly SnowClient: SnowClient | undefined;
   private readonly maxMetricsMetadata: number;
@@ -294,106 +262,85 @@ export class HybridComplete implements CompleteStrategy {
     let completeSnippet = false;
     let span = true;
     for (const context of contexts) {
-
       switch (context.kind) {
         case ContextKind.Aggregation:
           asyncResult = asyncResult.then((result) => {
-            console.log(result)
-
             return result.concat(autocompleteNodes.aggregateOp);
           });
           break;
         case ContextKind.Function:
           asyncResult = asyncResult.then((result) => {
-            console.log(result)
-
             return result.concat(autocompleteNodes.functionIdentifier);
           });
           break;
 
+        case ContextKind.basicSql:
+          console.log('basicSQL is being triggered');
 
-
-        case ContextKind.basicSql:          
-        console.log("basicSQL is being triggered")
-
-          asyncResult = asyncResult.then((result) => {            console.log(result)
-
+          asyncResult = asyncResult.then((result) => {
             return result.concat(autocompleteNodes.basicSql);
           });
           break;
 
-
         case ContextKind.BinOpModifier:
-          asyncResult = asyncResult.then((result) => {            console.log(result)
-
+          asyncResult = asyncResult.then((result) => {
             return result.concat(autocompleteNodes.binOpModifier);
           });
           break;
         case ContextKind.BinOp:
-          asyncResult = asyncResult.then((result) => {            console.log(result)
-
+          asyncResult = asyncResult.then((result) => {
             return result.concat(autocompleteNodes.binOp);
           });
           break;
         case ContextKind.MatchOp:
-          asyncResult = asyncResult.then((result) => {            console.log(result)
-
+          asyncResult = asyncResult.then((result) => {
             return result.concat(autocompleteNodes.matchOp);
           });
           break;
         case ContextKind.dropSQLTerms:
-          asyncResult = asyncResult.then((result) => {            console.log(result)
-
+          asyncResult = asyncResult.then((result) => {
             return result.concat(autocompleteNodes.dropSQLTerms);
           });
           break;
         case ContextKind.Duration:
           span = false;
-          asyncResult = asyncResult.then((result) => {            console.log(result)
-
+          asyncResult = asyncResult.then((result) => {
             return result.concat(autocompleteNodes.duration);
           });
           break;
         case ContextKind.Offset:
-          asyncResult = asyncResult.then((result) => {            console.log(result)
-
+          asyncResult = asyncResult.then((result) => {
             return result.concat([{ label: 'offset' }]);
           });
           break;
         case ContextKind.Bool:
-          asyncResult = asyncResult.then((result) => {            console.log(result)
-
+          asyncResult = asyncResult.then((result) => {
             return result.concat([{ label: 'bool' }]);
           });
           break;
         case ContextKind.AtModifiers:
-          asyncResult = asyncResult.then((result) => {            console.log(result)
-
+          asyncResult = asyncResult.then((result) => {
             return result.concat(autocompleteNodes.atModifier);
           });
           break;
         case ContextKind.MetricName:
-          asyncResult = asyncResult.then((result) => {            console.log(result)
-
+          asyncResult = asyncResult.then((result) => {
             completeSnippet = true;
             return this.autocompleteMetricName(result, context);
           });
           break;
         case ContextKind.LabelName:
-          asyncResult = asyncResult.then((result) => {            console.log(result)
-
+          asyncResult = asyncResult.then((result) => {
             return this.autocompleteLabelName(result, context);
           });
           break;
         case ContextKind.LabelValue:
-          asyncResult = asyncResult.then((result) => {            console.log(result)
-
+          asyncResult = asyncResult.then((result) => {
             return this.autocompleteLabelValue(result, context);
           });
       }
     }
-    return asyncResult.then((result) => {            console.log(result)
-
+    return asyncResult.then((result) => {
       return arrayToCompletionResult(result, computeStartCompletePosition(tree, pos), pos, completeSnippet, span);
     });
   }
@@ -403,14 +350,12 @@ export class HybridComplete implements CompleteStrategy {
       return result;
     }
     const metricCompletion = new Map<string, Completion>();
-    return this.SnowClient
-      .metricNames(context.metricName)
+    return this.SnowClient.metricNames(context.metricName)
       .then((metricNames: string[]) => {
         for (const metricName of metricNames) {
           metricCompletion.set(metricName, { label: metricName, type: 'constant' });
         }
 
-        // avoid to get all metric metadata if the prometheus server is too big
         if (metricNames.length <= this.maxMetricsMetadata) {
           // in order to enrich the completion list of the metric,
           // we are trying to find the associated metadata

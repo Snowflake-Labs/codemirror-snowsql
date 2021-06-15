@@ -1,24 +1,4 @@
-// The MIT License (MIT)
-//
-// Copyright (c) 2020 The Prometheus Authors
-//
-// Permission is hereby granted, free of charge, to any person obtaining a copy
-// of this software and associated documentation files (the "Software"), to deal
-// in the Software without restriction, including without limitation the rights
-// to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
-// copies of the Software, and to permit persons to whom the Software is
-// furnished to do so, subject to the following conditions:
-//
-// The above copyright notice and this permission notice shall be included in all
-// copies or substantial portions of the Software.
-//
-// THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
-// IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
-// FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
-// AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
-// LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
-// OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
-// SOFTWARE.
+
 
 import { parser } from 'lezer-snowsql';
 import { styleTags, tags } from '@codemirror/highlight';
@@ -43,8 +23,7 @@ export const snowSQLLanguage = LezerLanguage.define({
         'Avg Create Select Allowed_IP_Policy Describe Desc From Bottomk Count Count_values Group Max Min Quantile Stddev Stdvar Sum Topk': tags.operatorKeyword,
         'By Without Table Dash Stage Allowed IP Bool On Ignoring GroupLeft GroupRight Offset Start End': tags.modifier,
         'And Unless Or': tags.logicOperator,
-        'Allowed_IP_Policy A_token_like_this': tags.macroName,
-        'Sub Add Type  Network Policy Mul Mod Div Eql Neq Lte Lss Gte Gtr EqlRegex EqlSingle NeqRegex Pow At': tags.operator,
+        'Sub Add Type  Network Policy  Mod Div Eql Neq Lte Lss Gte Gtr EqlRegex EqlSingle NeqRegex Pow At': tags.operator,
         UnaryOp: tags.arithmeticOperator,
         '( )': tags.paren,
         '[ ]': tags.squareBracket,

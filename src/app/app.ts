@@ -5,7 +5,7 @@ import {  snowSQLExtension  } from '../lang-snowsql';
 import { customTheme, snowSQLHighlightMaterialTheme } from './theme';
 
 const snowsqlExtension = new snowSQLExtension();
-let editor: EditorView;
+export let editor: EditorView;
 
 function setCompletion() {
   const completionSelect = document.getElementById('completion') as HTMLSelectElement;

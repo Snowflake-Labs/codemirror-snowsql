@@ -33,6 +33,9 @@ import { syntaxTree } from '@codemirror/language';
 import { cursorTo } from 'readline';
 import { bindActionCreators } from 'redux';
 import { getFunction, ValueType } from '../types/function';
+import {printTree} from './parse-tree-printer';
+import { editor } from "../../app/app"
+
 
 export class Parser {
   private readonly tree: Tree;
@@ -60,7 +63,7 @@ export class Parser {
 
   private diagnoseAllErrorNodes() {
     const cursor = this.tree.cursor();
-    console.log(cursor.node.firstChild?.name)
+    //console.log(cursor.node.firstChild?.name)
     while (cursor.next()) {
       // usually there is an error node at the end of the expression when user is typing
       // so it's not really a useful information to say the expression is wrong.
@@ -79,10 +82,17 @@ export class Parser {
 
 
   checkAST(node: SyntaxNode | null): ValueType {
-    console.log(node?.type.name, node?.type.id)
 
-    // const forCe = this.tree.cursor();
-    console.log("walkThrough" + (node ? walkThrough(node) : 'nothing to walk'))
+    let doc = ''
+    console.log("Walkthrough\n\n" + (node ? walkThrough(node) : ''))
+
+    doc = editor.state.sliceDoc(0, editor.state.doc.length);
+    console.log("Parse Tree\n\n" + (node ? printTree(this.tree, doc ) : ''))
+
+
+
+
+
     if (!node) {
       return ValueType.none;
     }
@@ -167,14 +177,12 @@ export class Parser {
 
 
   private checkDrop(node: SyntaxNode) {
-    console.log("Drop")
     console.log(walkThrough(node))
     return;
   }
 
 
   private checkDesc(node: SyntaxNode): void {
-    console.log("Desc!")
     console.log(walkThrough(node))
 
     return;

@@ -47,7 +47,7 @@ const autocompleteNodes: { [key: string]: Completion[] } = {
   binOpModifier: binOpModifierTerms,
   basicSql: basicSqlTerms,
   atModifier: atModifierTerms,
-  functionIdentifier: functionIdentifierTerms,
+  functionIdentifier: functionIdentifierTerms,  
   aggregateOp: aggregateOpTerms,
   dropSql: dropSQLTerms,
 };
@@ -275,7 +275,6 @@ export class HybridComplete implements CompleteStrategy {
           break;
 
         case ContextKind.basicSql:
-          console.log('basicSQL is being triggered');
 
           asyncResult = asyncResult.then((result) => {
             return result.concat(autocompleteNodes.basicSql);

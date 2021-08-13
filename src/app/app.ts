@@ -3,20 +3,22 @@ import { EditorState } from '@codemirror/state';
 import { EditorView } from '@codemirror/view';
 import {  snowSQLExtension  } from '../lang-snowsql';
 import { customTheme, snowSQLHighlightMaterialTheme } from './theme';
+import {format} from '../lang-snowsql/formatter/formatter'
+
 
 const snowsqlExtension = new snowSQLExtension();
 export let editor: EditorView;
-
+​
 function setCompletion() {
   const completionSelect = document.getElementById('completion') as HTMLSelectElement;
   const completionValue = completionSelect.options[completionSelect.selectedIndex].value;
   switch (completionValue) {
-
+​
     default:
       snowsqlExtension.setComplete();
   }
 }
-
+​
 function createEditor() {
   let doc = '';
   if (editor) {
@@ -34,17 +36,37 @@ function createEditor() {
     // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
     parent: document.querySelector('#editor')!,
   });
+
 }
 
-// function applyConfiguration(): void {
-//   setCompletion();
-//   createEditor();
-// }
+​
+function applyConfiguration(): void {
+  setCompletion();
+  createEditor();
+}
+
+
+function formatQuery() {
+editor.dispatch({
+  changes: {
+    from: 0,
+    to: editor.state.doc.length,
+    insert: format(editor.state.doc.toString()),
+  },
+});
+}
 
 createEditor();
-
+​
 // eslint-disable-next-line @typescript-eslint/no-non-null-assertion,@typescript-eslint/ban-ts-ignore
 // @ts-ignore
-// document.getElementById('apply').addEventListener('click', function () {
-//   applyConfiguration();
-// });
+document.getElementById('format').addEventListener('click', function () {
+  formatQuery();
+});
+
+
+
+
+
+
+

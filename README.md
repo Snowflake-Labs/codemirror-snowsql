@@ -4,10 +4,16 @@ CodeMirror 6 and Lezer parser. It is able to provide linting and autocomplete fo
 
 ## Development
 In case you want to contribute and change the code by yourself, run the following commands:
-To install all dependencies:
+
+```bash
+# To install all dependencies:
 npm install
-To start the web server:
+
+# To start the web server:
 npm start
+```
+
 This should create a tab in your browser with the development app that contains CodeMirror Next with the SnowSQL plugin.
+
 ## License
 [MIT](./LICENSE)

@@ -1,0 +1,31 @@
+{
+  "compileOnSave": false,
+  "compilerOptions": {
+    "baseUrl": ".",
+    "target": "ES2015",
+    "module": "ES2015",
+    "lib": [
+      "es6",
+      "dom"
+    ],
+    "paths": {
+    "lezer": ["node_modules/lezer"],
+    "lezer*": ["node_modules/lezer/*"],
+    },
+    "declaration": true,
+    "outDir": "lib",
+    "strict": true,
+    "sourceMap": true,
+    "moduleResolution": "node",
+    "allowSyntheticDefaultImports": true
+  },
+  "include": [
+    "src/lang-snowsql"
+  ],
+
+  "exclude": [
+    "node_modules",
+    "src/**/*.test.ts"
+  ]
+}
+
